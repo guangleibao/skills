@@ -1,6 +1,6 @@
 ---
 name: customer-case-study-deck
-description: Create a 3-slide customer case study deck from local source materials using the project template and good examples.
+description: Create a 4-slide customer case study deck from local source materials using the project template and good examples.
 ---
 
 # Customer Case Study Deck Skill
@@ -8,8 +8,8 @@ description: Create a 3-slide customer case study deck from local source materia
 Use this skill when asked to create a customer case study deck from materials under `assets/`.
 
 This skill is tailored for this repository and must follow:
-- Good examples are optionally in `assets/good-example/`
-- Template in `assets/slides-template/TiDB_Customer_Case_Study_Template_16x9.pptx`
+- Good examples in `assets/good-example/v2/`
+- Template in `assets/slides-template/v2/TiDB_Customer_Case_Study_Template_16x9.pptx`
 - Brand reference in `.claude/skills/tidb-branding/reference.md`
 
 ## When to use
@@ -25,116 +25,120 @@ This skill is tailored for this repository and must follow:
 
 ## Required deck format
 
-- Exactly 3 slides, 16:9.
-- Use `assets/slides-template/TiDB_Customer_Case_Study_Template_16x9.pptx` as base.
+- Exactly 4 slides, 16:9.
+- Use `assets/slides-template/v2/TiDB_Customer_Case_Study_Template_16x9.pptx` as base.
 - Populate speaker notes for all slides.
-- Include a detailed architecture transcript in Slide 3 notes.
+- Include a detailed architecture transcript in Slide 4 notes.
 
 ## Style baseline from good examples
 
+Reference style from:
+- `assets/good-example/v2/` folder.
+
 Observed common pattern:
-- Slide 1: dark cover, 2 logos top-right, customer title + product + highlight + confidentiality footer.
-- Slide 2: left "Challenges", right "Solution Overview", both as bullets.
-- Slide 3: left "Quantified Results" bullets, right custom architecture diagram.
+- Slide 1: replace the placeholders, light cover, customer logo + customer title + TiDB product + highlight + confidentiality footer.
+- Slide 2: reuse the slide 2 from the slide template. No change needed.
+- Slide 3: left "Challenges", right "Solution Overview", both as bullets.
+- Slide 4: left "Results" bullets, right "Architecture Diagram".
 
 ## Slide-by-slide rules
 
 ### Slide 1 (Cover)
 
-- Fonts are `DM Sans`
-- Replace placeholders:
+- Replace the placeholders' texts in the slide 1 template and keep the style, font, and size intact:
   - `<customer_name>` to the actual customer name
-  - `<TiDB_product_name>` to the actual TiDB product used
-  - `Distributed SQL at scale with operational simplicity` to a highlight sentence that describes the primary reason why customer chosen TiDB or the outstanding result achieved by using TiDB.
-- Keep confidential footer.
-- Add two logos on top-right:
-  - TiDB product logo + customer logo
-  - Same height
-  - Transparent customer logo preferred
-  - No white box behind logo
-  - TiDB product logos are under `assets/logos/` folder.
-- Match good-example placement and fonts settings:
-  - roughly 60px top/right margin
-  - ~38px horizontal gap between logos
-- No diagrams on this slide
+  - `<tidb_product_name>` to the actual TiDB product used
+  - `<case_highlight>` to a highlight sentence that describes the primary reason why customer chosen TiDB product or the outstanding result achieved by using TiDB, 13 words at maximum.
+- Add one customer logo which is designed for being put on the top of light backgrounds.
+  - Logo position is (left: 5.48 cm, top: 1.08 cm), size height: 1.27 cm (width scales proportionally)
+  - Customer logo with a transparent background is preferred.
+  - Do NOT search the customer logos from PingCAP or TiDB websites, use customer's own website as the source if there is no suitable logos under `assets/logos/` folder. Do NOT create the customer's logo by yourself.
 
-### Slide 2 (Challenges + Solution Overview)
+### Slide 2 (Agenda)
+
+- Reuse the slide 2 from the template. Do NOT do anything else.
+
+### Slide 3 (Challenges + Solution Overview)
 
 - Fonts are `DM Sans`
-- Replace placeholder in the title:
-  - `<one_sentence_summary_as_title>` to the actual workload scenario.
+- Replace placeholder's text in the title:
+  - `<one_short_sentence_summary_as_title>` to the actual workload scenario with 7 words at maximum.
 - Keep section headers:
   - `Challenges`
   - `Solution Overview`
-- Body text must be explicit bullets (not plain paragraph).
+- Replace the bullet content in the template with actual case findings.
+- Body text must be explicit native bullets (not plain paragraph). Slide 3 in the template already has this pattern.
 - Keep non-chip body text dark.
 - Keep text inside chip/softbox light.
 - Keep template chip/softbox background colors unless user explicitly requests otherwise.
 - No diagrams on this slide.
 - Bold the quantified numbers under Challenges when possible.
 
-### Slide 3 (Quantified Results + Architecture Diagram)
+### Slide 4 (Results + Architecture Diagram)
 
 - Fonts are `DM Sans`
-- Replace placeholder in the title:
-  - `<one_sentence_summary_as_title>` to a highligy summary
+- Replace placeholder's text in the title, keep the style:
+  - `<one_short_sentence_summary_as_title>` to the architecture characteristic with 7 words at maximum.
 - Keep section headers:
-  - `Quantified Results`
+  - `Results`
   - `Architecture Diagram`
-- Quantified results must be bullets.
+- Quantified results must be bold.
 - Emphasize key metrics (numbers/time/scale) with bold where practical.
-- No need to point out which source the regional production industry context had been validated through
+- No need to point out which source the regional production industry context had been validated through.
+- Replace the bullet content in the template with actual case findings.
+- Body text must be explicit native bullets (not plain paragraph). Slide 4 in the template already has this pattern.
 - Build a customer-specific architecture diagram (do not reuse unrelated diagram, based on the facts you learned from the provided materials).
 - Diagram style:
-  - rounded rectangles
-  - right-angle or clean connectors
-  - readable labels near connectors, no overlaps with boxes
-  - include `TiDB Cluster` component.
+  - Every computed position is should be wrapped in `int(round(...))` via a helper `emu()` function.
+  - Rounded rectangles.
+  - Right-angle or clean connectors.
+  - Readable labels near connectors, no overlaps with boxes, no overlaps with the connector lines.
+  - Include `TiDB Cluster` component. And, `PD`, `TiKV`, `TiDB`, `TiFlash` are subcomponents that already inside the `TiDB Cluster`, no need to draw these components.
   - Keep the softboxes background in dark color.
   - Keep diagram text within the softboxes in light color.
   - Keep diagram text that describes connector lines in dark color (because the slide is in light background).
+  - The diagram components should not overlapped with the chip heads on the slide.
 - Append a detailed transcript to explain the reference architecture diagram.
 - Bold the quantified numbers under Quantified Results when possible.
 
 ## Content construction workflow
 
-1. Locate customer source files under `assets/customers/...`.
-2. Extract factual inputs from decks/docs/web pages. Translate the content into English if the source is not English.
-3. Build 3-part narrative:
+1. Locate customer source files under `assets/customers/...` and `input/` folders.
+2. Skip the `output/` folder, it is NOT for your reference by any means.
+3. Extract factual inputs from decks/docs/web pages. Translate the content into English if the source is not English.
+4. Build 3-part narrative:
    - Challenge context
    - Solution architecture and migration approach
    - Quantified outcomes
-4. Normalize product naming to source reality (e.g., TiDB, TiDB Cloud, TiDB Cloud Starter, TiDB Cloud Dedicated).
-5. Use customer name consistently.
-6. Add slide notes:
-   - Slide 1: source and context
-   - Slide 2: challenge/solution summary
-   - Slide 3: metrics + detailed architecture talk track
+5. Normalize product naming to source reality (e.g., TiDB, TiDB Cloud, TiDB Cloud Starter, TiDB Cloud Dedicated, TiDB Cloud Essential, TiDB Cloud Premium, or TiDB Cloud BYOC).
+6. Use customer name consistently.
+7. Add slide notes:
+   - Slide 1: detailed source and context.
+   - Slide 3: detailed challenge/solution descriptions.
+   - Slide 4: metrics + detailed architecture talk track.
 
-## Logo selection rules
+## Customer Logo selection rules
 
 - Prefer official customer logos from customer source materials or official brand pages.
-- Do not use customer logos from pingcap website.
-- Prefer transparent logos for dark cover.
-- Validate visual compatibility on dark background.
-- If a logo is uncertain/incorrect, replace with a verified official source.
+- Do not use customer logos from PingCAP nor TiDB websites.
+- Validate visual compatibility on light background slide.
+- If a logo is uncertain/incorrect, replace it with a verified one from customer's official websites.
 
 ## Quality gates before finishing
 
 - Deck exists in `stage/`.
-- 3 slides only.
-- Slide 2 and Slide 3 contain bullet-formatted body content.
-- Slide 1 has TiDB + customer logos correctly placed and visually clean.
-- No leftover placeholder text from template.
-- Notes exist for all slides; Slide 3 notes include architecture transcript.
-- Open the generated deck for user review.
+- 4 slides only.
+- Slide 3 and Slide 4 contain native bullet-formatted body content.
+- Slide 1 has customer logo correctly placed and visually clean.
+- No leftover placeholder text from the template.
+- Notes exist for all slides; Slide 4 notes include architecture transcript.
 
 ## File naming
 
-- Use: `<Customer>_Customer_Case_Study_16x9.pptx`
+- Use: `<Customer>_Customer_Case_Study_16x9_<YYYYMMDD>.pptx`, replace `<YYYYMMDD>` with the current date when the workflow runs.
 - Save to `stage/`.
 - If collision exists, append a safe suffix.
 
 ## Post creation tasks
 
-- Open the generated deck locally.
+- None
